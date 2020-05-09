@@ -28,7 +28,7 @@ name_trend <- function(person_name) {
     geom_line() +
     scale_color_brewer(type = "qual") +
     labs(
-      title = glue(Name: {person_name}),
+      title = glue("Name: {person_name}"), # The function requieres the use of quotes, since it refers to characters 
       x = "Year",
       y = "Number of births",
       color = NULL
