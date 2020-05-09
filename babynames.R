@@ -1,6 +1,7 @@
 library(tidyverse)
 library(babynames)
 library(glue)
+library(RColorBrewer) # I added this for the top_n_trend function 
 
 # plot total US births
 applicants %>%
@@ -62,13 +63,18 @@ top_n_trend <- function(n_year, n_rank = 5) {
     arrange(sex, rank) %>%
     select(name, sex, rank)
   
+  
+  # Adding colors to the palette so the function can graph more values 
+  nb.cols <- 20
+  mycolors <- colorRampPalette(brewer.pal(8, "Set2"))(nb.cols)
+  
   # keep just the top N names over time and plot
   filtered_names %>%
     inner_join(select(top_names_filtered, sex, name)) %>% # Change the name of the top_names object
     ggplot(mapping = aes(x = year, y = n, color = name)) +
     facet_wrap(~sex, ncol = 1) +
     geom_line() +
-    scale_color_brewer(type = "qual", palette = "Set3") +
+    scale_color_manual(values = mycolors) + # Changed to the extended palette 
     labs(
       title = glue("Most Popular Names of {n_year}"),
       x = "Year",
