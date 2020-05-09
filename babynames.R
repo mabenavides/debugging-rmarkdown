@@ -43,7 +43,7 @@ top_n_trend <- function(n_year, n_rank = 5) {
   # create lookup table
   top_names <- babynames %>%
     group_by(name, sex) %>%
-    summarize(count = as.numeric(sum(count))) %>%
+    summarize(count = as.numeric(sum(n))) %>% # It cannot sum over a variable that doesn't exist. Changed to n
     filter(count > 1000) %>%
     select(name, sex)
   
