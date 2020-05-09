@@ -25,7 +25,8 @@ The file `hiv_rates.csv` contains a tidy dataset with six columns:
 1. The percentage of HIV-positive females age 15-24.
 1. The percentage of HIV-positive males age 15-24.
 
-```{r import data}
+```{r import data, message = FALSE}
+# Added a message FALSO to avoid messages from showing in the report 
 hiv <- read_csv("data/hiv_rates.csv") %>% # It needed it the whole route to the file
   janitor::clean_names() %>%
   mutate(country_name = countrycode(iso3, "iso3c", "country.name"))
@@ -48,6 +49,7 @@ most_recent <- single_iso %>%
 For which years do we have data for `r my_country`?
 
 ```{r years}
+# Included the "r" in the chunk description
 single_iso %>%
   distinct(year)
 ```
@@ -57,10 +59,10 @@ How has HIV incidence changed over time in `r my_country`?
 ```{r plot}
 plot_title <- glue::glue("Country: {my_country}")
 single_iso %>%
-  ggplot(aes(x = year, y = hiv_pct_15_to_49)) %>%
-  geom_point() %>%
-  geom_line() %>%
-  scale_y_continuous(labels = scales::percent) %>%
+  ggplot(aes(x = year, y = hiv_pct_15_to_49)) + # Changed the pipe for +
+  geom_point() +
+  geom_line() +
+  scale_y_continuous(labels = scales::percent) +
   labs(
     title = plot_title,
     subtitle = "HIV prevalence, age 15-49",
@@ -98,7 +100,8 @@ single_iso %>%
 
 How does `r my_country` compare in `r most_recent`?
 
-```{r plot, fig.height = 14}
+```{r plot2, fig.height = 14}
+# Changed name of the chunk because we cannot have two chunks with the same name 
 plot_title <- glue::glue("Year: {most_recent}")
 hiv %>%
   filter(year == most_recent) %>%
