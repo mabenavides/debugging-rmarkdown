@@ -39,7 +39,7 @@ name_trend <- function(person_name) {
 name_trend("Benjamin")
 
 # write function to show trends over time for top N names in a specific year
-top_n_trend <- function(n_year, n_rank = 5) {
+top_n_trend <- function(n_year, n_rank = 5) { 
   # create lookup table
   top_names <- babynames %>%
     group_by(name, sex) %>%
@@ -52,10 +52,10 @@ top_n_trend <- function(n_year, n_rank = 5) {
     inner_join(top_names)
   
   # get the top N names from n_year
-  top_names <- filtered_names %>%
+  top_names_filtered <- filtered_names %>% # Set another name to object to avoid overwriting it 
     filter(year == n_year) %>%
     group_by(name, sex) %>%
-    summarize(count = sum(count)) %>%
+    summarize(count = sum(n)) %>%  # Again it cannot sum over a variable that doesn't exist.
     group_by(sex) %>%
     mutate(rank = min_rank(desc(count))) %>%
     filter(rank < n_rank) %>%
@@ -64,8 +64,8 @@ top_n_trend <- function(n_year, n_rank = 5) {
   
   # keep just the top N names over time and plot
   filtered_names %>%
-    inner_join(select(top_names, sex, name)) %>%
-    ggplot(mapping = aes(x = year, y = count, color = name)) +
+    inner_join(select(top_names_filtered, sex, name)) %>% # Change the name of the top_names object
+    ggplot(mapping = aes(x = year, y = n, color = name)) +
     facet_wrap(~sex, ncol = 1) +
     geom_line() +
     scale_color_brewer(type = "qual", palette = "Set3") +
