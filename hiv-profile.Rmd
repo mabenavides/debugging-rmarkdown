@@ -1,12 +1,14 @@
 ---
+author: "Maria Benavides"
+date: "2020-05-09"
 title: "Country Profile"
-output
-github_document:
+output: 
+  github_document:
     toc: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$get(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE) # The function opts_chunk$get is for listing default chunk options. Changed it to opts_chunk$set
 library(tidyverse)
 # install.packages("countrycode")
 library(countrycode)
