@@ -11,7 +11,7 @@ iso3_list <- read_csv("data/hiv_rates.csv") %>%
   pull()
 
 
-# 
+# Run a for loop to render the template for all countries in HIV 
 
 for (i in iso3_list) {
   file <- paste(
