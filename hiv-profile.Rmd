@@ -26,7 +26,7 @@ The file `hiv_rates.csv` contains a tidy dataset with six columns:
 1. The percentage of HIV-positive males age 15-24.
 
 ```{r import data}
-hiv <- read_csv("hiv_rates.csv") %>%
+hiv <- read_csv("data/hiv_rates.csv") %>% # It needed it the whole route to the file
   janitor::clean_names() %>%
   mutate(country_name = countrycode(iso3, "iso3c", "country.name"))
 ```
@@ -47,7 +47,7 @@ most_recent <- single_iso %>%
 
 For which years do we have data for `r my_country`?
 
-```{years}
+```{r years}
 single_iso %>%
   distinct(year)
 ```
