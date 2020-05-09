@@ -8,8 +8,8 @@ applicants %>%
     sex = if_else(sex == "F", "Female", "Male"),
     n_all = n_all / 1e06
   ) %>%
-  ggplot(mapping = aes(x = year, y = n_all, fill = sex)) +
-  geom_ribbon() +
+  ggplot(mapping = aes(x = year, y = n_all, color = sex)) + # Since we don't have an area, we should use color, instead of fill
+  geom_line() + # If we're interested in the total births, makes more sense to use geom_line 
   scale_fill_brewer(type = "qual") +
   labs(
     title = "Total US births",
