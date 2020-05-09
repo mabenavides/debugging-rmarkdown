@@ -90,7 +90,7 @@ top_n_trend(n_year = 1986, n_rank = 10)
 
 # compare naming trends to disney princess film releases
 disney <- tribble(
-  "princess",  "film", "release_year",
+  ~princess,  ~film, ~release_year, # Should use the ~ syntax 
   "Snow White", "Snow White and the Seven Dwarfs", 1937,
   "Cinderella", "Cinderella", 1950,
   "Aurora", "Sleeping Beauty", 1959,
@@ -109,12 +109,12 @@ disney <- tribble(
 ## join together the data frames
 babynames %>%
   # ignore men named after princesses - is this fair?
-  filter(sex == F) %>%
+  filter(sex == "F") %>% # Sex column is in characters, so we need quotation marks
   inner_join(disney, by = c("name" = "princess")) %>%
   mutate(name = fct_reorder(.f = name, .x = release_year)) %>%
   # plot the trends over time, indicating release year
   ggplot(mapping = aes(x = year, y = n)) +
-  facet_wrap(~ name + film, scales = "free_y", labeller = label_both()) +
+  facet_wrap(~ name + film, scales = "free_y", labeller = label_both) + # labeller doesn't need the ()
   geom_line() +
   geom_vline(mapping = aes(xintercept = release_year), linetype = 2, alpha = .5) +
   scale_x_continuous(breaks = c(1880, 1940, 2000)) +
