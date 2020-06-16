@@ -4,6 +4,11 @@
 
 In this repository, I fixed the errors/warnings in a predetermined script to generate the desired output (in the babynames.R file). In addition, I created a HTML parameterized report per country, considering information available for HIV rates. 
 
+### Libraries needed: 
+
+* Tidyverse
+* Countrycode
+
 ### Files: 
 
 * [babynames.R](babynames.R): I fixed the bugs and added comments of what I changed
